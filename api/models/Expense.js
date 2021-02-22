@@ -2,32 +2,32 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize) => {
-    class Account extends Sequelize.Model {}
-        Account.init({
+    class Expense extends Sequelize.Model {}
+        Expense.init({
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true
             },
-            accountName: {
+            expenseName: {
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            accountBalance: {
+            expenseCost: {
                 type: Sequelize.INTEGER,
                 allowNull: false
-            },
+            }
         }, { sequelize });
 
-        Account.associate = (models) => {
-            Account.belongsTo(models.Account, {
-                as: 'owner2',
+        Expense.associate = (models) => {
+            Expense.belongsTo(models.User, {
+                as: 'owner',
                  foreignKey: {
                      fieldName: "userId",
+                     allowNull: false
                   }
             });
         };
-    
 
-        return Account;
+        return Expense;
     }
