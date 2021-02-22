@@ -1,7 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
+
+
+ h1, h2, h3 {
+   font-style: italic;
+   margin: 0 auto;
+   text-align: center;
+   color: navy;
+   padding-top: 15px;
+ }
+
+div {
+   border-radius: 5px;
+ }
+
+ nav {
+   background-color: #6456ff;
+   font-family: 'Raleway', sans-serif;
+ }
+
+ .body {
+   background-color: #847ce6;
+   font-family: 'Raleway', sans-serif;
+   color: white;
+ }
+ 
+#root {
+  max-width: 500px;
+}
+
+#row1 {
+  margin: 0 auto;
+  padding: 8px;
+  background-color: #6456ff;
+ }
 
  .form.control, .form-group {
   max-width: 300px;
 } 
+
+.total {
+  padding: 10px;
+}
 
 .card, .card-header, .card-body {
   max-width: 400px;
@@ -13,6 +52,7 @@
 
 .body {
   padding: 20px;
+  margin: 0 auto;
 }
 
 .App {
@@ -51,5 +91,11 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #root {
+    max-width: 1200px;
   }
 }

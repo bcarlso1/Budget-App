@@ -1,26 +1,64 @@
 import React, { Component } from 'react';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 // const Account = (props) => {
 export default class Account extends Component {
+
+    state = {
+        accountName: "",
+        accountBalance: "",
+        accountId: "",
+        errors: []
+    }
+
+
     render() {
+
+        const {
+            errors
+        } = this.state;
+
         return (
             <div>
-                <Form.Group as={Row}>
-                    <Form.Label column med="4">{this.props.accountName}</Form.Label>
+                <div className="form-group row" id="row1">
+                    <label className="form-label col-form-label col" med="4">{this.props.accountName}</label>
                     <Col med="8">
-                        <Form.Control type="number" value={this.props.accountBalance} onChange={this.change} />
+                        <input type="number" className="form-control" defaultValue={this.props.accountBalance} id={this.props.id} onBlur={this.change} onMouseOut={this.change} />
                     </Col>
-                </Form.Group>
+                   
+                </div>
             </div>
     
         )
     }
-    
-    change = (event) => {
-        console.log('change')
-    }
-}
 
+    change = (event) => {
+   
+        const { context } = this.props;
+        const accountName = event.target.parentNode.previousElementSibling.innerHTML;
+        const accountBalance = event.target.value;
+        let accountId = event.target.id;
+        
+        context.data.updateAccount(accountId, accountName, accountBalance)
+        .then( errors => {
+            if (errors.length) {
+               console.log(errors);
+               const list = [];
+               for (var i = 0; i < errors.length; i++) {
+                 list.push(errors[i].message)
+                 this.setState({
+                   errors: list,
+                 })
+               }
+            } else {
+                  console.log('Successful update');
+                  window.location.href = "/accounts";
+                 }
+        }).catch((errors) => {
+            console.log(errors);
+            // this.props.history.push('/error');
+        });
+    };
+
+
+}

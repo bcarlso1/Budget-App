@@ -4,14 +4,20 @@ import withContext from '../Context';
 import Account from './Account';
 import Form from 'react-bootstrap/Form';
 import Delete from './Delete';
+import Expenses from './Expenses';
+import Expense from './Expense';
 
 const DeleteWithContext = withContext(Delete);
 const AccountsWithContext = withContext(Accounts);
+const ExpensesWithContext = withContext(Expenses);
+const AccountWithContext = withContext(Account);  
+const ExpenseWithContext = withContext(Expense); 
 
 export default class Budget extends Component {
     
     state = {
-        accountList: ""
+        accountList: "",
+        expenselizf: ""
     }
     
     componentDidMount() {
@@ -19,35 +25,71 @@ export default class Budget extends Component {
 
         context.data.getAccounts()
             .then( accounts => {
-                this.setState( prevState => {
-                    return {
+                this.setState(
+                     {
                         accountList: accounts.accounts
                     }
-                })
-     }).catch((errors) => {
-         console.log(errors);
-    });
+                )
+            }).catch((errors) => {
+                console.log(errors);
+            });
+        context.data.getExpenses()
+                .then( expenses => {
+                    this.setState(
+                        {
+                            expenseList: expenses.expenses
+                        }
+                    )
+        }).catch((errors) => {
+            console.log(errors);
+        });
+
 };
 
     render() {
 
         let results = this.state.accountList;
-        let accountsObject = [];
+        
+            let accountsObject = [];
 
-        for (var i = 0; i < results.length; i++) {
-            accountsObject[i] =
+            for (var i = 0; i < results.length; i++) {
+                accountsObject[i] = 
+                    <AccountWithContext
+                        accountName={results[i].accountName}
+                        accountBalance={results[i].accountBalance}
+                        key={results[i].id}
+                        id={results[i].id}
+                    />
+                
+            }
 
-                <Account
-                    accountName={results[i].accountName}
-                    accountBalance={results[i].accountBalance}
-                    key={i}
-                />
-        }
+            let expenseResults = this.state.expenseList;
 
-        let accountSum = 0;
-        for (var i = 0; i < results.length; i++) {
-            accountSum += results[i].accountBalance;
-        }
+            let accountSum = 0;
+        
+            let expensesObject = [];
+
+            if (expenseResults != null) { // gives chance for expenseResults to load
+                for (var i = 0; i < expenseResults.length; i++) {
+                    expensesObject[i] = 
+                        <ExpenseWithContext
+                           expenseName={expenseResults[i].expenseName}
+                           expenseCost={expenseResults[i].expenseCost}
+                           key={expenseResults[i].id}
+                           id={expenseResults[i].id}
+                       />
+                }
+            
+                for (var i = 0; i < expenseResults.length; i++) {
+                    accountSum += expenseResults[i].expenseCost;
+                }
+                accountSum = accountSum * -1
+                
+            }
+
+            for (var i = 0; i < results.length; i++) {
+                accountSum += results[i].accountBalance;
+            }
 
        
  
@@ -55,13 +97,21 @@ export default class Budget extends Component {
             <React.Fragment>
 
                 <div className="body">
-                    <h2>Budget Overview</h2>
+                    <h1>Budget Overview</h1>
+                    <h3>Accounts</h3>
                     <Form>
                         {accountsObject}
                     </Form>
-                   <h5>You have <u>${accountSum}</u> for expenses</h5>
+                    <h3>Expenses</h3>
+                   <Form>
+                         {expensesObject} 
+                    </Form>
+                    <div className="total">
+                        <h5>You have ${accountSum} left for expenses</h5>
+                    </div>
                     <AccountsWithContext />
-                    <DeleteWithContext accountList={this.state.accountList} />
+                    <ExpensesWithContext />
+                    <DeleteWithContext accountList={this.state.accountList} expenseList={this.state.expenseList} />
                     
                 </div>
                  
@@ -73,4 +123,3 @@ export default class Budget extends Component {
 
    
 }
-

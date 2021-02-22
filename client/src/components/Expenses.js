@@ -6,11 +6,11 @@ import Accordion from 'react-bootstrap/Accordion';
 
 
 
-export default class Accounts extends Component {
+export default class Expenses extends Component {
 
     state = {
-        accountName: "",
-        accountBalance: "",
+        expenseName: "",
+        expenseCost: "",
         errors: [],
     }
     
@@ -24,30 +24,32 @@ export default class Accounts extends Component {
             <React.Fragment>
 
                  <div>
+                  
+
                     <Accordion defaultActiveKey="0">
                         <Card>
                             <Card.Header>
                                 <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                    Add an Account
+                                    Add an Expense
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="1">
                                 <Card.Body>
                                     <Form>
                                         <Form.Group>
-                                            <Form.Label>Account Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Enter account name" name="accountName" onChange={this.change} />
+                                            <Form.Label>Expense Name</Form.Label>
+                                            <Form.Control type="text" placeholder="Enter expense name" name="expenseName" onChange={this.change} />
                                         </Form.Group>
 
                                         <Form.Group>
-                                            <Form.Label>Account Balance</Form.Label>
+                                            <Form.Label>Expense Cost</Form.Label>
                                             <Form.Text className="text-muted">
-                                                For credit cards, enter a negative balance
-                                        </Form.Text>
-                                            <Form.Control type="number" placeholder="Enter account balance" name="accountBalance" onChange={this.change}  />
+                                                Savings can also be set as an "expense"
+                                            </Form.Text>
+                                            <Form.Control type="number" placeholder="Enter expense cost" name="expenseCost" onChange={this.change}  />
                                         </Form.Group>
                                         <Button variant="primary" type="submit" onClick={this.submit}>
-                                            Add Account
+                                            Add Expense
                                         </Button>
                                     </Form>
                                 </Card.Body>
@@ -77,15 +79,17 @@ export default class Accounts extends Component {
     submit = (e) => {
         e.preventDefault();
         const { context } = this.props;
+        const { expenseName, expenseCost, errors } = this.state;
         const userId = context.authenticatedUser.user[0].id;
-        const { accountName, accountBalance, errors } = this.state;
+        const emailAddress = context.authenticatedUser.user[0].emailAddress;
+        const password = context.currentPassword;
 
-        context.data.createAccount(accountName, accountBalance, userId)
+        context.data.createExpense(expenseName, expenseCost, userId, emailAddress, password)
             .then( errors => {
                 if (errors.length) {
                     console.log(errors);
                 } else {
-                    console.log('Account added')
+                    console.log('Expense added')
                     window.location.href = "/accounts";
                 }
             })
