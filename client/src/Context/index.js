@@ -12,10 +12,15 @@ export class Provider extends Component {
           // courseList: [],
           authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
           currentPassword: Cookies.getJSON('currentPassword') || null,
-  
+          showAccountsState: false,
+          showExpensesState: false,
+          showDeleteAccountState: false,
+          showDeleteExpenseState: false,
         };
         this.data = new Data();
     }
+
+    
 
     render() {
 
@@ -23,13 +28,19 @@ export class Provider extends Component {
               authenticatedUser: this.state.authenticatedUser,
               data: this.data,
               currentPassword: this.state.currentPassword,
+              showAccountsState: this.state.showAccountsState,
+              showExpensesState: this.state.showExpensesState,
+              showDeleteAccountState: this.state.showDeleteAccountState,
+              showDeleteExpenseState: this.state.showDeleteExpenseState,
               actions: {
               signIn: this.signIn,
-              signOut: this.signOut
+              signOut: this.signOut,
+              showAccounts: this.showAccounts,
+              showExpenses: this.showExpenses,
+              showDeleteAccount: this.showDeleteAccount,
+              showDeleteExpense: this.showDeleteExpense
             }
-        }
-
-    
+        }  
 
             return (    
                 <Context.Provider value={value}>
@@ -64,6 +75,21 @@ export class Provider extends Component {
       Cookies.remove('currentPassword');
     }
 
+    showExpenses = () => {
+      this.setState(prevState => ({ showExpensesState: !prevState.showExpenseState }))
+    }
+
+    showAccounts = () => {
+      this.setState({ showAccountsState: true })
+    }
+
+    showDeleteAccount = () => {
+      this.setState({ showDeleteAccountState: true })
+    }
+
+    showDeleteExpense = () => {
+      this.setState({ showDeleteExpenseState: true })
+    }
 
 }
 

@@ -13,25 +13,24 @@ export default class Accounts extends Component {
         accountBalance: "",
         errors: [],
     }
+
+
     
     render() {
 
         const {
             errors,
         } = this.state;
+
         
         return (
             <React.Fragment>
 
-                 <div>
+               {
+                    this.props.context.showAccountsState &&
+               
                     <Accordion defaultActiveKey="0">
                         <Card>
-                            <Card.Header>
-                                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                    Add an Account
-                                </Accordion.Toggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey="1">
                                 <Card.Body>
                                     <Form>
                                         <Form.Group>
@@ -51,13 +50,10 @@ export default class Accounts extends Component {
                                         </Button>
                                     </Form>
                                 </Card.Body>
-                            </Accordion.Collapse>
                         </Card>
                         </Accordion>
-                        
-                 </div>
                  
-
+               }
             </React.Fragment>
            
         )

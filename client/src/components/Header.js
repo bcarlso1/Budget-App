@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Alert from 'react-bootstrap/Alert';
 
 export default class Header extends Component {
     render() {
@@ -40,10 +41,13 @@ export default class Header extends Component {
                        </React.Fragment>
                       
                     }
+                    
                 </Navbar.Collapse>
             </Navbar>
                 
-                
+            <Alert variant="warning">
+                            This application is in testing and not for storing personal data
+                         </Alert>
         </div>
         )
     }

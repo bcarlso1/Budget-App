@@ -30,15 +30,12 @@ export default class Delete extends Component {
 
         return (
            <React.Fragment>
-                <div>
-                 <Accordion defaultActiveKey="0">
+                
+                {
+                    this.props.context.showDeleteAccountState &&
                         <Card>
-                            <Card.Header>
-                                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                    Delete an Account
-                                </Accordion.Toggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey="1">
+                          
+                  
                                 <Card.Body>
                                     <Form>
                                         <Form.Group>
@@ -52,19 +49,13 @@ export default class Delete extends Component {
                                         </Button>
                                     </Form>
                                 </Card.Body>
-                            </Accordion.Collapse>
+              
                         </Card>
-                        </Accordion>
-                </div>
-                <div>
-                <Accordion defaultActiveKey="0">
+    }
+      {
+                    this.props.context.showDeleteExpenseState &&
                         <Card>
-                            <Card.Header>
-                                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                    Delete an Expense
-                                </Accordion.Toggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey="1">
+   
                                 <Card.Body>
                                     <Form>
                                         <Form.Group>
@@ -78,10 +69,8 @@ export default class Delete extends Component {
                                         </Button>
                                     </Form>
                                 </Card.Body>
-                            </Accordion.Collapse>
                         </Card>
-                </Accordion>
-            </div>
+    }
            </React.Fragment>
            
         )

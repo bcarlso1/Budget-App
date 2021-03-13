@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Delete from './Delete';
 import Expenses from './Expenses';
 import Expense from './Expense';
+import Button from 'react-bootstrap/Button';;
 
 const DeleteWithContext = withContext(Delete);
 const AccountsWithContext = withContext(Accounts);
@@ -15,11 +16,12 @@ const ExpenseWithContext = withContext(Expense);
 
 export default class Budget extends Component {
     
+
     state = {
         accountList: "",
-        expenselizf: ""
+        expenselizt: "",
     }
-    
+
     componentDidMount() {
         const { context } = this.props;
 
@@ -45,6 +47,7 @@ export default class Budget extends Component {
         });
 
 };
+ 
 
     render() {
 
@@ -53,14 +56,16 @@ export default class Budget extends Component {
             let accountsObject = [];
 
             for (var i = 0; i < results.length; i++) {
+                if (results[i].userId === this.props.context.authenticatedUser.user[0].id) {
                 accountsObject[i] = 
                     <AccountWithContext
                         accountName={results[i].accountName}
                         accountBalance={results[i].accountBalance}
                         key={results[i].id}
                         id={results[i].id}
+                        userId={results[i].userId}
                     />
-                
+                }
             }
 
             let expenseResults = this.state.expenseList;
@@ -71,29 +76,40 @@ export default class Budget extends Component {
 
             if (expenseResults != null) { // gives chance for expenseResults to load
                 for (var i = 0; i < expenseResults.length; i++) {
-                    expensesObject[i] = 
+                   if (expenseResults[i].userId === this.props.context.authenticatedUser.user[0].id) {
+                        console.log('match')
+                        expensesObject[i] = 
                         <ExpenseWithContext
-                           expenseName={expenseResults[i].expenseName}
-                           expenseCost={expenseResults[i].expenseCost}
-                           key={expenseResults[i].id}
-                           id={expenseResults[i].id}
-                       />
+                        expenseName={expenseResults[i].expenseName}
+                        expenseCost={expenseResults[i].expenseCost}
+                        key={expenseResults[i].id}
+                        id={expenseResults[i].id}
+                        userId={results[i].userId}
+                    />
+                   } 
+                    
                 }
             
                 for (var i = 0; i < expenseResults.length; i++) {
-                    accountSum += expenseResults[i].expenseCost;
+                    if (expenseResults[i].userId === this.props.context.authenticatedUser.user[0].id) {
+                        accountSum += expenseResults[i].expenseCost;
+                    }
                 }
-                accountSum = accountSum * -1
+                    accountSum = accountSum * -1
                 
             }
 
             for (var i = 0; i < results.length; i++) {
-                accountSum += results[i].accountBalance;
+                if (results[i].userId === this.props.context.authenticatedUser.user[0].id) {
+                    accountSum += results[i].accountBalance;
+                }
             }
 
-       
+          
+      
  
         return (
+
             <React.Fragment>
 
                 <div className="body">
@@ -109,6 +125,10 @@ export default class Budget extends Component {
                     <div className="total">
                         <h5>You have ${accountSum} left for expenses</h5>
                     </div>
+                    <Button variant="primary" onClick={this.handleClick}>Add Account</Button>
+                    <Button variant="primary" onClick={this.handleClick}>Add Expense</Button>
+                    <Button variant="danger" onClick={this.handleClick}>Delete Account</Button>
+                    <Button variant="danger" onClick={this.handleClick}>Delete Expense</Button>
                     <AccountsWithContext />
                     <ExpensesWithContext />
                     <DeleteWithContext accountList={this.state.accountList} expenseList={this.state.expenseList} />
@@ -121,5 +141,21 @@ export default class Budget extends Component {
         )
     }
 
+    handleClick = (e) => {
+        const { context } = this.props;
+        if(e.target.innerHTML === "Add Account") {
+            this.props.context.actions.showAccounts()
+        }
+        else if(e.target.innerHTML === "Add Expense") {
+            this.props.context.actions.showExpenses()
+        }
+        else if(e.target.innerHTML === "Delete Account") {
+            this.props.context.actions.showDeleteAccount()
+        } else {
+            this.props.context.actions.showDeleteExpense()
+        }
+    }  
+  
    
 }
+

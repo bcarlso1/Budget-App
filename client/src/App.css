@@ -25,8 +25,10 @@ div {
  }
  
 #root {
-  max-width: 500px;
+  max-width: 600px;
 }
+
+
 
 #row1 {
   margin: 0 auto;
@@ -42,8 +44,17 @@ div {
   padding: 10px;
 }
 
-.card, .card-header, .card-body {
-  max-width: 400px;
+.card-header, .accordion {
+  width: 200px;
+  display: inline-block;
+}
+
+.card, .card-body {
+  max-width: 200px;
+}
+
+.card-body {
+  width: 400px;
 }
 
 .title {

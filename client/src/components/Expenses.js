@@ -11,6 +11,7 @@ export default class Expenses extends Component {
     state = {
         expenseName: "",
         expenseCost: "",
+        userId: "",
         errors: [],
     }
     
@@ -19,21 +20,18 @@ export default class Expenses extends Component {
         const {
             errors,
         } = this.state;
+
+       
         
         return (
             <React.Fragment>
 
-                 <div>
+                {
+                    this.props.context.showExpensesState &&
                   
-
-                    <Accordion defaultActiveKey="0">
+                
                         <Card>
-                            <Card.Header>
-                                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                    Add an Expense
-                                </Accordion.Toggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey="1">
+                        
                                 <Card.Body>
                                     <Form>
                                         <Form.Group>
@@ -53,13 +51,12 @@ export default class Expenses extends Component {
                                         </Button>
                                     </Form>
                                 </Card.Body>
-                            </Accordion.Collapse>
+                           
                         </Card>
-                        </Accordion>
+                    
                         
-                 </div>
                  
-
+                 }
             </React.Fragment>
            
         )
