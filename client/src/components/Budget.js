@@ -125,13 +125,24 @@ export default class Budget extends Component {
                     <div className="total">
                         <h5>You have ${accountSum} left for expenses</h5>
                     </div>
-                    <Button variant="primary" onClick={this.handleClick}>Add Account</Button>
-                    <Button variant="primary" onClick={this.handleClick}>Add Expense</Button>
-                    <Button variant="danger" onClick={this.handleClick}>Delete Account</Button>
-                    <Button variant="danger" onClick={this.handleClick}>Delete Expense</Button>
-                    <AccountsWithContext />
-                    <ExpensesWithContext />
-                    <DeleteWithContext accountList={this.state.accountList} expenseList={this.state.expenseList} />
+                    <div className="button-div">
+                            <div>
+                                <Button variant="primary" onClick={this.handleClick}>Add Account</Button>
+                                <Button variant="primary" onClick={this.handleClick}>Add Expense</Button>
+                            </div>
+                            <div>
+                                <Button variant="danger" onClick={this.handleClick}>Delete Account</Button>
+                                <Button variant="danger" onClick={this.handleClick}>Delete Expense</Button>
+                            </div>
+                            <div className="edit-accounts">
+                                <AccountsWithContext />
+                                <ExpensesWithContext />
+                                <DeleteWithContext accountList={this.state.accountList} expenseList={this.state.expenseList} />
+                            </div>
+                        
+                    </div>
+                    
+                   
                     
                 </div>
                  

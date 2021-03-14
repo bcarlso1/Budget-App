@@ -45,9 +45,9 @@ export default class Header extends Component {
                 </Navbar.Collapse>
             </Navbar>
                 
-            <Alert variant="warning">
+                    <div class="warning">
                             This application is in testing and not for storing personal data
-                         </Alert>
+                         </div>
         </div>
         )
     }
