@@ -60,9 +60,13 @@ export default class Accounts extends Component {
     }
 
     change = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-
+        let name = event.target.name;
+        let value = event.target.value;
+        if (name == "accountName") {
+            value =  value.charAt(0).toUpperCase() + value.slice(1);
+            console.log(value);
+        }
+      
         this.setState(() => {
             return {
                 [name]: value

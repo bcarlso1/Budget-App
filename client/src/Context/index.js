@@ -75,20 +75,32 @@ export class Provider extends Component {
       Cookies.remove('currentPassword');
     }
 
-    showExpenses = () => {
-      this.setState(prevState => ({ showExpensesState: !prevState.showExpenseState }))
+    hideUnclicked = () => {
+      this.setState({ showExpensesState: false});
+      this.setState({ showAccountsState: false})
+      this.setState({ showDeleteAccountState: false })
+      this.setState({ showDeleteExpenseState: false })
     }
 
+    showExpenses = () => {
+        this.hideUnclicked();
+        this.setState({ showExpensesState: !this.state.showExpensesState });
+      }
+    
+
     showAccounts = () => {
-      this.setState({ showAccountsState: true })
+      this.hideUnclicked();
+      this.setState({ showAccountsState: !this.state.showAccountsState });
     }
 
     showDeleteAccount = () => {
-      this.setState({ showDeleteAccountState: true })
+      this.hideUnclicked();
+      this.setState({ showDeleteAccountState: !this.state.showDeleteAccountState });
     }
 
     showDeleteExpense = () => {
-      this.setState({ showDeleteExpenseState: true })
+      this.hideUnclicked();
+      this.setState({ showDeleteExpenseState: !this.state.showDeleteExpenseState });
     }
 
 }

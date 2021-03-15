@@ -9,6 +9,28 @@
    padding-top: 15px;
  }
 
+.warning {
+  padding: 2px;
+  background-color: pink;
+  text-align: center;
+}
+
+.edit-accounts {
+  margin-top: 10px;
+}
+
+.total {
+  text-align: center;
+}
+
+#accountOption, #expenseOption {
+  margin-top: 10px;
+}
+
+.form-group {
+  margin-top: -20px;
+}
+
 div {
    border-radius: 5px;
  }
@@ -18,17 +40,30 @@ div {
    font-family: 'Raleway', sans-serif;
  }
 
+
  .body {
    background-color: #847ce6;
    font-family: 'Raleway', sans-serif;
    color: white;
+ }
+
+.btn {
+   width: 200px;
+   margin: 2px;
  }
  
 #root {
   max-width: 600px;
 }
 
+.button-div {
+  display: block;
+  text-align: center;
+}
 
+.card {
+  margin: 0 auto;
+}
 
 #row1 {
   margin: 0 auto;
@@ -44,17 +79,13 @@ div {
   padding: 10px;
 }
 
-.card-header, .accordion {
-  width: 200px;
-  display: inline-block;
+.card {
+  width: auto;
+  max-width: 300px;
 }
 
-.card, .card-body {
-  max-width: 200px;
-}
-
-.card-body {
-  width: 400px;
+.button-div {
+  align-items: center;
 }
 
 .title {
@@ -105,8 +136,8 @@ div {
   }
 }
 
-@media only screen and (min-width: 768px) {
+/* @media only screen and (min-width: 768px) {
   #root {
     max-width: 1200px;
   }
-}
+} */
