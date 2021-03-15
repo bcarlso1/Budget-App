@@ -11,8 +11,11 @@ export default class Delete extends Component {
         let accountListOptions = [];
         // build array with for loop  through each result in state
         for (var i = 0; i < results.length; i++) {
+            if (results[i].userId == this.props.context.authenticatedUser.user[0].id ) {
             accountListOptions[i] = 
                  <option id={results[i].id} key={i} >{results[i].accountName}</option>
+        
+                }
         }
 
         let results2 = this.props.expenseList;
@@ -20,9 +23,11 @@ export default class Delete extends Component {
          // build array with for loop  through each result in state
         if (results2 != null) {
             for (var i = 0; i < results2.length; i++) {
+                if (results2[i].userId == this.props.context.authenticatedUser.user[0].id ) {
                 expenseListOptions[i] = 
                      <option id={results2[i].id} key={i} >{results2[i].expenseName}</option>
-           }
+                }
+            }
         } else {
             console.log('null');
         }

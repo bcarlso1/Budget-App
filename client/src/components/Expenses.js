@@ -64,7 +64,11 @@ export default class Expenses extends Component {
 
     change = (event) => {
         const name = event.target.name;
-        const value = event.target.value;
+        let value = event.target.value;
+        if (name == "expenseName") {
+            value =  value.charAt(0).toUpperCase() + value.slice(1);
+            console.log(value);
+        }
 
         this.setState(() => {
             return {
